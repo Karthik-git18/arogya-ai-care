@@ -1,0 +1,23 @@
+{
+  "rajesh@example.com": {
+    "name": "Rajesh Kumar",
+    "password": "password123",
+    "created": "2026-04-05T01:50:09.985968"
+  },
+  "test@medical.com": {
+    "name": "Test User",
+    "email": "test@medical.com",
+    "password": "secure123",
+    "created": "2026-04-05T01:53:04.007656"
+  },
+  "test@test.com": {
+    "name": "Test",
+    "password": "123",
+    "created": "2026-04-05T01:50:32.074861"
+  },
+  "karthipalepu18@gmail.com": {
+    "name": "karthik",
+    "password": "123456",
+    "created": "2026-04-05T01:57:51.209984"
+  }
+}
