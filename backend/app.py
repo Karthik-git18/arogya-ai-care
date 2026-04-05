@@ -14,25 +14,50 @@ except ImportError:
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from model import DiseasePredictor
-from nlp_utils import NLPUtils
-from report_analyzer import ReportAnalyzer
-from diet_planner import DietPlanner
+# Safe imports - don't crash if dependencies missing
+predictor = None
+nlp = None
+analyzer = None
+planner = None
 
-app = Flask(__name__)
-CORS(app)
-
-# Initialize components
 try:
+    from model import DiseasePredictor
     predictor = DiseasePredictor()
     print("✓ Disease predictor initialized")
 except Exception as e:
-    print(f"✗ Error initializing predictor: {e}")
-    predictor = None
+    print(f"⚠ Disease predictor skipped: {e}")
 
-nlp = NLPUtils()
-analyzer = ReportAnalyzer()
-planner = DietPlanner()
+try:
+    from nlp_utils import NLPUtils
+    nlp = NLPUtils()
+    print("✓ NLP initialized")
+except Exception as e:
+    print(f"⚠ NLP skipped: {e}")
+
+try:
+    from report_analyzer import ReportAnalyzer
+    analyzer = ReportAnalyzer()
+    print("✓ Report analyzer initialized")
+except Exception as e:
+    print(f"⚠ Report analyzer skipped: {e}")
+
+try:
+    from diet_planner import DietPlanner
+    planner = DietPlanner()
+    print("✓ Diet planner initialized")
+except Exception as e:
+    print(f"⚠ Diet planner skipped: {e}")
+
+app = Flask(__name__)
+
+# Enhanced CORS configuration
+CORS(app, resources={
+    r"/api/*": {
+        "origins": ["*"],
+        "methods": ["GET", "POST", "OPTIONS"],
+        "allow_headers": ["Content-Type"]
+    }
+})
 
 # Data storage
 USERS_FILE = 'users.json'
@@ -99,6 +124,15 @@ def static_files(filename):
         return send_from_directory(os.path.join(base_path, 'frontend'), filename)
     except:
         return jsonify({'error': 'Not found'}), 404
+
+# Routes - Health Check
+@app.route('/health')
+def health():
+    return jsonify({
+        'status': 'ok',
+        'predictor': 'ready' if predictor else 'not available',
+        'nlp': 'ready' if nlp else 'not available'
+    })
 
 # Routes - Authentication
 @app.route('/api/auth/register', methods=['POST'])
