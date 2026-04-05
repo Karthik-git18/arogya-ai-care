@@ -7,10 +7,18 @@ from datetime import datetime
 from werkzeug.utils import secure_filename
 import io
 
+# Try to import PDF libraries with fallback
+fitz = None
 try:
-    import fitz  # PyMuPDF
+    import fitz  # PyMuPDF (primary)
+    print("✓ PyMuPDF (fitz) imported successfully")
 except ImportError:
-    fitz = None
+    try:
+        import pymupdf as fitz  # Alternative import name
+        print("✓ PyMuPDF (pymupdf) imported successfully")
+    except ImportError:
+        print("⚠ PyMuPDF not available - PDF support limited")
+        fitz = None
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -462,9 +470,6 @@ def analyze():
     
     # Handle PDF file upload
     elif 'pdf_file' in request.files:
-        if not fitz:
-            return jsonify({'error': 'PDF support not available. Please install PyMuPDF.'}), 400
-        
         pdf_file = request.files['pdf_file']
         
         if pdf_file.filename == '':
@@ -474,14 +479,38 @@ def analyze():
             return jsonify({'error': 'Please upload a PDF file only'}), 400
         
         try:
-            # Read PDF and extract text using PyMuPDF
             pdf_bytes = pdf_file.read()
-            doc = fitz.open(stream=pdf_bytes, filetype="pdf")
             report_text = ''
-            for page in doc:
-                report_text += page.get_text() + '\n'
+            
+            # Try PyMuPDF first (better for complex PDFs)
+            if fitz:
+                try:
+                    doc = fitz.open(stream=pdf_bytes, filetype="pdf")
+                    for page in doc:
+                        report_text += page.get_text() + '\n'
+                    print("✓ PDF extracted using PyMuPDF")
+                except Exception as e:
+                    print(f"⚠ PyMuPDF extraction failed: {e}, trying PyPDF2...")
+                    report_text = ''
+            
+            # Fallback to PyPDF2
+            if not report_text:
+                try:
+                    from PyPDF2 import PdfReader
+                    from io import BytesIO
+                    pdf_stream = BytesIO(pdf_bytes)
+                    pdf_reader = PdfReader(pdf_stream)
+                    for page in pdf_reader.pages:
+                        report_text += page.extract_text() + '\n'
+                    print("✓ PDF extracted using PyPDF2")
+                except Exception as e:
+                    return jsonify({'error': f'Error reading PDF: {str(e)}'}), 400
+            
+            if not report_text or not report_text.strip():
+                return jsonify({'error': 'PDF is empty or unreadable. Please ensure the PDF contains text.'}), 400
+                
         except Exception as e:
-            return jsonify({'error': f'Error reading PDF: {str(e)}'}), 400
+            return jsonify({'error': f'Error processing PDF: {str(e)}'}), 400
     
     if not report_text or not report_text.strip():
         return jsonify({'error': 'No report text provided'}), 400
