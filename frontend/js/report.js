@@ -364,7 +364,7 @@ async function downloadReportPDF() {
     console.log("PDF Data:", window.currentReportData);
     
     try {
-        const response = await fetch('/api/generate_pdf', {
+        const response = await fetch('https://arogya-ai-care-1.onrender.com/api/generate_pdf', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ reportData: window.currentReportData })
@@ -447,7 +447,7 @@ async function analyzeReportText(e) {
     const intervalId = showLoadingSteps(resultDiv);
     
     try {
-        const res = await fetch('/api/analyze', {
+        const res = await fetch('https://arogya-ai-care-1.onrender.com/api/analyze', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ report_text })
@@ -573,7 +573,7 @@ async function analyzeReportPDF(file) {
         const formData = new FormData();
         formData.append('pdf_file', file);
         
-        const res = await fetch('/api/analyze', {
+        const res = await fetch('https://arogya-ai-care-1.onrender.com/api/analyze', {
             method: 'POST',
             body: formData
         });

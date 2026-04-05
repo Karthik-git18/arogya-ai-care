@@ -202,7 +202,7 @@ async function generateDietPlan(e) {
     const reportData = window.currentReportData || {};
     
     try {
-        const res = await fetch('/api/diet', {
+        const res = await fetch('https://arogya-ai-care-1.onrender.com/api/diet', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
