@@ -58,7 +58,7 @@ async function findMedicines() {
     try {
         console.log('🔄 FETCHING MEDICINES FOR:', symptom);
         
-        const response = await fetch('http://localhost:5001/api/medicines', {
+        const response = await fetch('https://arogya-ai-care-1.onrender.com/api/medicines', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ symptom: symptom })

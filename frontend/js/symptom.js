@@ -36,7 +36,7 @@ async function checkSymptoms(e) {
     resultDiv.classList.add('show');
     
     try {
-        const response = await fetch('http://localhost:10000/api/predict', {
+        const response = await fetch('https://arogya-ai-care-1.onrender.com/api/predict', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
