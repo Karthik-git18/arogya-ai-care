@@ -1984,6 +1984,284 @@
                 display: none;
             }
         }
+
+        /* ===== COMPREHENSIVE MOBILE IMPROVEMENTS ===== */
+        @media (max-width: 768px) {
+            /* Global Mobile Fixes */
+            * {
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            body {
+                font-size: 14px;
+            }
+
+            main {
+                padding: 1rem;
+            }
+
+            h1 { font-size: 24px; }
+            h2 { font-size: 20px; }
+            h3 { font-size: 18px; }
+
+            /* Buttons - Full Width on Mobile */
+            .btn-primary, .btn-action, button[type="submit"], .btn {
+                width: 100%;
+                min-height: 44px;
+                padding: 12px 16px;
+                font-size: 16px;
+            }
+
+            /* Input Fields - Full Width */
+            input, textarea, select {
+                width: 100%;
+                padding: 12px;
+                font-size: 16px;
+                border-radius: 8px;
+            }
+
+            /* Forms & Grids */
+            form {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .form-row, .input-row {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .form-group {
+                width: 100%;
+            }
+
+            /* Card Layouts */
+            .card, .glass-box, .medical-box {
+                padding: 16px;
+                border-radius: 12px;
+                margin-bottom: 12px;
+            }
+
+            /* Tables - Scrollable */
+            table {
+                overflow-x: auto;
+                display: block;
+                font-size: 14px;
+            }
+
+            td, th {
+                padding: 8px;
+                white-space: nowrap;
+            }
+
+            /* Profile Section */
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 16px;
+            }
+
+            .profile-info {
+                width: 100%;
+            }
+
+            .profile-avatar {
+                width: 80px;
+                height: 80px;
+                margin: 0 auto;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            /* Symptom Checker */
+            .symptom-input-group {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            #symptoms-input {
+                width: 100%;
+                padding: 12px;
+                font-size: 16px;
+            }
+
+            #check-btn {
+                width: 100%;
+            }
+
+            /* Chat Interface */
+            #chat-box {
+                height: 40vh;
+                max-height: 400px;
+            }
+
+            .chat-input-section {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            #chat-input {
+                width: 100%;
+            }
+
+            #send-btn {
+                width: 100%;
+            }
+
+            /* Medicine Finder */
+            #med-input {
+                width: 100%;
+            }
+
+            #med-btn {
+                width: 100%;
+                margin-top: 8px;
+            }
+
+            .medicine-card {
+                padding: 12px;
+                margin-bottom: 12px;
+            }
+
+            /* Report/Diet Section */
+            .input-grp {
+                width: 100%;
+            }
+
+            .diet-chip {
+                padding: 8px 12px;
+                font-size: 12px;
+                flex: 1;
+                text-align: center;
+                min-width: 80px;
+            }
+
+            /* Navigation */
+            .nav-link {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+
+            .bottom-nav {
+                gap: 0;
+            }
+
+            .bottom-nav a {
+                flex: 1;
+                padding: 12px 8px;
+                text-align: center;
+            }
+
+            /* Drop Zone */
+            #drop-zone {
+                padding: 24px;
+                min-height: 100px;
+            }
+
+            /* Spacing Reductions */
+            .content {
+                padding: 12px;
+            }
+
+            .section {
+                margin-bottom: 16px;
+            }
+
+            /* Remove Overflow */
+            .container, main, .content {
+                overflow-x: hidden;
+                max-width: 100%;
+            }
+
+            /* Fix Form Grid Columns */
+            [style*="grid-template-columns: 1fr 1fr"] {
+                grid-template-columns: 1fr !important;
+            }
+
+            /* Accessibility */
+            input:focus, textarea:focus, button:focus {
+                outline: none;
+                box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3);
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* Extra Small Devices */
+            h1 { font-size: 20px; }
+            h2 { font-size: 18px; }
+            h3 { font-size: 16px; }
+
+            main {
+                padding: 0.75rem;
+            }
+
+            .card, .glass-box {
+                padding: 12px;
+            }
+
+            button, .btn {
+                font-size: 14px;
+                padding: 10px 12px;
+                min-height: 40px;
+            }
+
+            input, textarea {
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .diet-chip {
+                padding: 6px 10px;
+                font-size: 11px;
+            }
+
+            #chat-box {
+                height: 35vh;
+                max-height: 300px;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            td, th {
+                padding: 6px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            /* Very Small Phones */
+            main { padding: 0.5rem; }
+            .card { padding: 10px; }
+            h2 { font-size: 16px; }
+            button { font-size: 13px; padding: 8px 10px; }
+            input { font-size: 15px; } /* Prevent iOS zoom */
+        }
+
+        /* Landscape Mode Optimization */
+        @media (max-height: 600px) and (orientation: landscape) {
+            #chat-box {
+                height: 25vh;
+            }
+
+            .profile-avatar {
+                width: 60px;
+                height: 60px;
+            }
+
+            button, .btn {
+                min-height: 36px;
+                padding: 8px 12px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -2393,8 +2671,7 @@
                     <h3 style="color:#f8fafc; font-size:18px; margin-bottom:16px; display:flex; align-items:center; gap:8px;"><span>🎯</span> Tell AI Your Goal</h3>
                     <form onsubmit="generateDietPlan(event)">
                         <div style="position:relative; margin-bottom:16px;">
-                            <input type="text" id="diet-ai-prompt" placeholder="E.g., I want to lose weight and reduce sugar, I feel tired..." style="width:100%; padding: 16px 20px; padding-right: 50px; background: rgba(0,0,0,0.2); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; color: #fff; font-size: 16px; transition:0.3s;" required>
-                            <button type="button" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); background:transparent; border:none; font-size:20px; cursor:pointer;" onclick="document.getElementById('diet-ai-prompt').value += ' 🎙️'">🎙️</button>
+                            <input type="text" id="diet-ai-prompt" placeholder="E.g., I want to lose weight and reduce sugar, I feel tired..." style="width:100%; padding: 16px 20px; background: rgba(0,0,0,0.2); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; color: #fff; font-size: 16px; transition:0.3s;" required>
                         </div>
                         <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px;" id="diet-suggestion-chips">
                             <span class="diet-chip" onclick="setDietPrompt('I want to lose weight and reduce sugar')">🔥 Lose Weight</span>
