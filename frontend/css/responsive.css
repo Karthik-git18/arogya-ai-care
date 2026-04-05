@@ -1,0 +1,629 @@
+/* ============================= */
+/* RESPONSIVE DESIGN IMPROVEMENTS */
+/* ============================= */
+
+/* Mobile-First Base Styles */
+:root {
+    --safe-area-top: max(0px, env(safe-area-inset-top));
+    --safe-area-bottom: max(0px, env(safe-area-inset-bottom));
+    --safe-area-left: max(0px, env(safe-area-inset-left));
+    --safe-area-right: max(0px, env(safe-area-inset-right));
+}
+
+html {
+    font-size: clamp(14px, 2vw, 16px);
+    scroll-behavior: smooth;
+}
+
+body {
+    font-size: 1rem;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* ===== VIEWPORT & SAFE AREAS ===== */
+@supports (padding: max(0px)) {
+    body {
+        padding-left: var(--safe-area-left);
+        padding-right: var(--safe-area-right);
+    }
+}
+
+/* ===== CONTAINERS - MOBILE FIRST ===== */
+.container, .container-dashboard, .container-onboarding {
+    width: 100%;
+    padding: 1rem;
+    margin: 0 auto;
+}
+
+@media (min-width: 480px) {
+    .container, .container-dashboard, .container-onboarding {
+        padding: 1.5rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .container, .container-dashboard, .container-onboarding {
+        max-width: 90%;
+        padding: 2rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container, .container-dashboard, .container-onboarding {
+        max-width: 1200px;
+        padding: 2rem;
+    }
+}
+
+/* ===== TYPOGRAPHY - RESPONSIVE ===== */
+h1 {
+    font-size: clamp(24px, 6vw, 48px);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: clamp(20px, 5vw, 36px);
+    line-height: 1.3;
+    margin-bottom: 0.8rem;
+}
+
+h3 {
+    font-size: clamp(18px, 4vw, 28px);
+    line-height: 1.4;
+    margin-bottom: 0.6rem;
+}
+
+p {
+    font-size: clamp(14px, 2vw, 16px);
+    margin-bottom: 1rem;
+}
+
+/* ===== BUTTONS - TOUCH FRIENDLY ===== */
+button, .btn, input[type="button"], input[type="submit"] {
+    min-height: 44px;
+    padding: 0.75rem 1.5rem;
+    font-size: clamp(14px, 2vw, 16px);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+    button, .btn, input[type="button"], input[type="submit"] {
+        width: 100%;
+        font-weight: 600;
+    }
+}
+
+/* ===== INPUTS & FORMS ===== */
+input, textarea, select {
+    width: 100%;
+    padding: 0.875rem;
+    font-size: 16px; /* Prevents iOS zoom */
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    transition: all 0.3s ease;
+}
+
+input::placeholder, textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 10px rgba(34, 197, 94, 0.3);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+    font-family: inherit;
+}
+
+/* ===== CARDS & BOXES ===== */
+.card, .glass-box, .medical-box {
+    padding: clamp(1rem, 3vw, 2rem);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 767px) {
+    .card, .glass-box, .medical-box {
+        border-radius: 12px;
+        padding: 1rem;
+    }
+}
+
+/* ===== FLEXBOX & GRID - RESPONSIVE ===== */
+.flex-row, .flex-center, .flex-between {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+@media (max-width: 767px) {
+    .flex-row {
+        flex-direction: column;
+    }
+    
+    .flex-row > * {
+        width: 100%;
+    }
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+@media (max-width: 767px) {
+    .grid-2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+@media (max-width: 767px) {
+    .grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .grid-3 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== DASHBOARD TABS ===== */
+.dashboard-tabs {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    padding: 0.5rem 0;
+    margin: 0 -1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.dashboard-tabs::-webkit-scrollbar {
+    height: 4px;
+}
+
+.dashboard-tabs::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.dashboard-tabs::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 10px;
+}
+
+.tab-btn {
+    flex-shrink: 0;
+    padding: 0.75rem 1.5rem;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    min-height: 44px;
+}
+
+@media (max-width: 767px) {
+    .tab-btn {
+        padding: 0.625rem 1.25rem;
+        font-size: 0.875rem;
+    }
+}
+
+.tab-btn.active {
+    background: linear-gradient(135deg, var(--accent), #a855f7);
+    color: white;
+}
+
+/* ===== SYMPTOM CHECKER ===== */
+.symptom-input-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+    .symptom-input-section {
+        flex-direction: row;
+    }
+}
+
+#symptoms-input {
+    flex: 1;
+    min-height: 50px;
+}
+
+#check-btn {
+    min-width: 150px;
+}
+
+@media (max-width: 767px) {
+    #check-btn {
+        width: 100%;
+    }
+}
+
+.symptom-result {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+/* ===== AI CHAT ===== */
+#chat-box {
+    height: 50vh;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+@media (max-width: 767px) {
+    #chat-box {
+        height: 40vh;
+    }
+}
+
+.chat-input-section {
+    display: flex;
+    gap: 0.5rem;
+    position: sticky;
+    bottom: 0;
+    padding: 1rem 0;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 767px) {
+    .chat-input-section {
+        padding: 0.75rem 0;
+    }
+}
+
+#chat-input {
+    flex: 1;
+    min-height: 44px;
+}
+
+#send-btn {
+    min-width: 50px;
+    min-height: 44px;
+    padding: 0.5rem;
+}
+
+.message {
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.message-user {
+    justify-content: flex-end;
+}
+
+.message-ai {
+    justify-content: flex-start;
+}
+
+/* ===== DROP ZONE / FILE UPLOAD ===== */
+#drop-zone {
+    padding: clamp(2rem, 5vw, 3rem);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+@media (max-width: 767px) {
+    #drop-zone {
+        min-height: 120px;
+        padding: 1.5rem;
+    }
+}
+
+/* ===== ACCORDION ===== */
+.accordion-btn {
+    width: 100%;
+    padding: 1rem;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.accordion-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.accordion-content {
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+/* ===== MEDICINE FINDER ===== */
+#med-input {
+    width: 100%;
+    min-height: 44px;
+}
+
+#med-btn {
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+@media (min-width: 768px) {
+    #med-input {
+        width: 70%;
+    }
+    
+    #med-btn {
+        width: 28%;
+        margin-top: 0;
+    }
+}
+
+.medicine-card {
+    padding: 1.25rem;
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(168, 85, 247, 0.1));
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    overflow-x: auto;
+}
+
+/* ===== MODALS & OVERLAYS ===== */
+.modal, .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+@media (max-width: 767px) {
+    .modal-content {
+        padding: 1.5rem;
+        border-radius: 12px;
+    }
+}
+
+/* ===== ANIMATIONS - OPTIMIZED FOR MOBILE ===== */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+@media (max-width: 767px) {
+    * {
+        animation-duration: 0.3s !important;
+    }
+}
+
+/* ===== TOUCH FEEDBACK ===== */
+button, .btn, .tab-btn, input[type="button"], input[type="submit"] {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+    body {
+        background: white;
+        color: black;
+    }
+    
+    .no-print {
+        display: none !important;
+    }
+}
+
+/* ===== LARGE SCREENS (Desktop) ===== */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1400px;
+    }
+    
+    .grid-2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ===== EXTRA SMALL DEVICES (<480px) ===== */
+@media (max-width: 479px) {
+    :root {
+        font-size: 14px;
+    }
+    
+    body {
+        font-size: 0.95rem;
+    }
+    
+    h1 {
+        font-size: 24px;
+    }
+    
+    h2 {
+        font-size: 20px;
+    }
+    
+    .container, .container-dashboard, .container-onboarding {
+        padding: 0.875rem;
+    }
+    
+    .card, .glass-box, .medical-box {
+        padding: 0.875rem;
+    }
+    
+    button, .btn {
+        padding: 0.625rem 1.25rem;
+    }
+}
+
+/* ===== LANDSCAPE MODE ===== */
+@media (max-height: 600px) and (orientation: landscape) {
+    #chat-box {
+        height: 30vh;
+    }
+    
+    .symptom-result {
+        max-height: 40vh;
+    }
+    
+    button {
+        min-height: 36px;
+        padding: 0.5rem 1rem;
+    }
+}
+
+/* ===== SAFE AREA SUPPORT ===== */
+@supports (padding-top: env(safe-area-inset-top)) {
+    body {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+    
+    .chat-input-section {
+        padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+    }
+}
+
+/* ===== VISIBILITY UTILITIES ===== */
+.hidden-mobile {
+    display: none !important;
+}
+
+@media (min-width: 768px) {
+    .hidden-mobile {
+        display: block !important;
+    }
+    
+    .hidden-desktop {
+        display: none !important;
+    }
+}
+
+/* ===== ASPECT RATIOS ===== */
+.aspect-square {
+    aspect-ratio: 1;
+}
+
+.aspect-video {
+    aspect-ratio: 16 / 9;
+}
+
+/* ===== LOADING STATE ===== */
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
